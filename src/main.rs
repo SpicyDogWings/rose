@@ -22,14 +22,30 @@ async fn main() -> glib::ExitCode {
         let scrolled_jj_log = ScrolledWindow::new();
         window.set_child(Some(&scrolled_jj_log));
         glib::MainContext::default().spawn_local(async move {
-            let jj_logs = jj::run_jj_log().await;
+            let commits = jj::run_jj_log().await;
+            let mut jj_logs = String::new();
+            for commit in commits {
+                let current_marker = if commit.is_current { " (CURRENT)" } else { "" };
+                jj_logs.push_str(&format!(
+                    "Commit ID: {}{}\
+Change ID: {}\
+Author: {} <{}>\
+Date: {}\
+Description: {}\
+\n",
+                    commit.commit_id,
+                    current_marker,
+                    commit.change_id,
+                    commit.author.name,
+                    commit.author.email,
+                    commit.author.timestamp,
+                    commit.description
+                ));
+            }
             let label = Label::new(Some(&jj_logs));
             label.set_wrap(true);
             label.set_selectable(true);
             scrolled_jj_log.set_child(Some(&label));
-            glib::MainContext::default().spawn_local(async move {
-              scrolled_jj_log.set_child(Some(&label));
-            });
         });
         window.present();
     });
