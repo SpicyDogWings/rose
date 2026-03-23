@@ -4,7 +4,7 @@ use gtk4::{Application, ApplicationWindow};
 #[tokio::main]
 async fn main() {
     let app = Application::builder()
-        .application_id("org.gtk.test")
+        .application_id("org.gtk.rose")
         .build();
     app.connect_activate(|app| {
         let window = ApplicationWindow::builder()
