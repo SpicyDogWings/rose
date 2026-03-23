@@ -5,6 +5,10 @@ use gtk4::{Box, ListBox, Orientation, SelectionMode};
 pub struct MainUi {}
 
 impl MainUi {
+    pub fn new() -> Self {
+        MainUi {}
+    }
+
     pub fn build_ui(&self) -> Box {
         let row = ActionRow::builder()
             .activatable(true)

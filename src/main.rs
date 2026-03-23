@@ -9,9 +9,8 @@ async fn main() {
     let app = Application::builder()
         .application_id("org.gtk.rose")
         .build();
-
     app.connect_activate(|app| {
-      let ui = MainUi { };
+      let ui = MainUi::new();
       let content = ui.build_ui();
         let window = ApplicationWindow::builder()
             .application(app)
