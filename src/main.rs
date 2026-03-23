@@ -1,4 +1,5 @@
 mod ui;
+mod jj;
 
 use adw::prelude::*;
 use adw::{ Application, ApplicationWindow };
