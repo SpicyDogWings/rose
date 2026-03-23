@@ -1,12 +1,8 @@
 use gtk4::prelude::*;
 use gtk4::{Application, ApplicationWindow};
-use gtk4::gio::Resource;
 
 #[tokio::main]
 async fn main() {
-    let resource = Resource::load("target/debug/compiled_resources.gresource")
-        .expect("Failed to load resources");
-    gtk4::gio::resources_register(&resource);
     let app = Application::builder()
         .application_id("org.gtk.test")
         .build();
@@ -24,6 +20,5 @@ async fn main() {
         window.set_child(Some(&button));
         window.show();
     });
-
     app.run();
 }
