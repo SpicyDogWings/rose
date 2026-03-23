@@ -10,27 +10,32 @@ impl MainUi {
     }
 
     pub fn build_ui(&self) -> Box {
-        let row = ActionRow::builder()
-            .activatable(true)
-            .title("Click me")
-            .build();
-        row.connect_activated(|_| {
-            eprintln!("Clicked!");
-        });
-        let list = self.build_list(vec![row]);
-        // let list = ListBox::builder()
-        //     .margin_top(32)
-        //     .margin_end(32)
-        //     .margin_bottom(32)
-        //     .margin_start(32)
-        //     .selection_mode(SelectionMode::None)
-        //     .css_classes(vec![String::from("boxed-list")])
-        //     .build();
-        // list.append(&row);
+        let elements = vec![
+            String::from("Item 1"),
+            String::from("Item 2"),
+            String::from("Item 3"),
+        ];
+        let rows = self.build_row(elements);
+        let list = self.build_list(rows);
+        // row.connect_activated(|_| {
+        //     eprintln!("Clicked!");
+        // });
         let content = Box::new(Orientation::Vertical, 0);
         content.append(&HeaderBar::new());
         content.append(&list);
         content
+    }
+
+    fn build_row(&self, elements: Vec<String>) -> Vec<ActionRow> {
+        let mut rows = Vec::new();
+        for element in elements {
+            let row = ActionRow::builder()
+                .activatable(true)
+                .title(&element)
+                .build();
+            rows.push(row);
+        }
+        rows
     }
 
     fn build_list(&self, rows: Vec<ActionRow>) -> ListBox {
