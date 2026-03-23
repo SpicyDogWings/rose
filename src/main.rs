@@ -11,7 +11,8 @@ async fn main() {
         .build();
 
     app.connect_activate(|app| {
-      let content = MainUi::build_ui();
+      let ui = MainUi { };
+      let content = ui.build_ui();
         let window = ApplicationWindow::builder()
             .application(app)
             .title("Rose")
