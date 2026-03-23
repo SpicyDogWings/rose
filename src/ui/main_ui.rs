@@ -17,9 +17,7 @@ impl MainUi {
         ];
         let rows = self.build_row(elements);
         let list = self.build_list(rows);
-        // row.connect_activated(|_| {
-        //     eprintln!("Clicked!");
-        // });
+
         let content = Box::new(Orientation::Vertical, 0);
         content.append(&HeaderBar::new());
         content.append(&list);
@@ -33,6 +31,10 @@ impl MainUi {
                 .activatable(true)
                 .title(&element)
                 .build();
+            let element_clone = element.clone();
+            row.connect_activated(move |_| {
+                eprintln!("Clicked: {}", element_clone);
+            });
             rows.push(row);
         }
         rows
